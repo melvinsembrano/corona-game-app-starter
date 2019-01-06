@@ -16,7 +16,7 @@ local widget = require "widget"
 local playBtn
 
 -- 'onRelease' event listener for playBtn
-local function onPlayBtnRelease()
+local function handlePlayButtonTap()
 	
 	-- go to level1.lua scene
 	composer.gotoScene( "level1", "fade", 500 )
@@ -33,33 +33,40 @@ function scene:create( event )
 	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
 
 	-- display a background image
-	local background = display.newImageRect( "background.jpg", display.actualContentWidth, display.actualContentHeight )
+	local background = display.newImageRect( "assets/images/bg.png", display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x = 0 + display.screenOriginX 
 	background.y = 0 + display.screenOriginY
 	
 	-- create/position logo/title image on upper-half of the screen
-	local titleLogo = display.newImageRect( "logo.png", 264, 42 )
+	local titleLogo = display.newImageRect( "assets/images/title.png", 263, 33 )
 	titleLogo.x = display.contentCenterX
 	titleLogo.y = 100
-	
-	-- create a widget button (which will loads level1.lua on release)
-	playBtn = widget.newButton{
-		label="Play Now",
-		labelColor = { default={255}, over={128} },
-		default="button.png",
-		over="button-over.png",
-		width=154, height=40,
-		onRelease = onPlayBtnRelease	-- event listener function
-	}
-	playBtn.x = display.contentCenterX
-	playBtn.y = display.contentHeight - 125
-	
+
+  local playButton = display.newImageRect( "assets/images/play-button.png", 166, 50 )
+  playButton.x = display.contentCenterX
+  playButton.y = display.contentCenterY
+  playButton:addEventListener( "tap", handlePlayButtonTap )
+
+	local levelsButton = display.newImageRect( "assets/images/levels-button.png", 166, 50 )
+  levelsButton.x = display.contentCenterX
+  levelsButton.y = display.contentCenterY + 70
+  -- levelsButton:addEventListener( "tap", handlePlayButtonTap )
+
+	local settingsButton = display.newImageRect( "assets/images/settings-button.png", 166, 50 )
+  settingsButton.x = display.contentCenterX
+  settingsButton.y = display.contentCenterY + 140
+  -- settingsButton:addEventListener( "tap", handlePlayButtonTap )
+
+
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
 	sceneGroup:insert( titleLogo )
-	sceneGroup:insert( playBtn )
+	sceneGroup:insert( playButton )
+	sceneGroup:insert( levelsButton )
+	sceneGroup:insert( settingsButton )
+
 end
 
 function scene:show( event )
