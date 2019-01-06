@@ -5,10 +5,12 @@
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
-local scene = composer.newScene()
+local audio = require( "audio" )
 
--- include Corona's "widget" library
-local widget = require "widget"
+local scene = composer.newScene()
+local backgroundMusic = audio.loadStream( "assets/sounds/bensound-sunny.mp3" )
+
+local backgroundMusicChannel = -1
 
 --------------------------------------------
 
@@ -80,6 +82,9 @@ function scene:show( event )
 		-- 
 		-- INSERT code here to make the scene come alive
 		-- e.g. start timers, begin animation, play audio, etc.
+    if not audio.isChannelPlaying( backgroundMusicChannel ) then
+      backgroundMusicChannel = audio.play( backgroundMusic, { channel=1, loops=-1, fadein=5000 } )
+    end
 	end	
 end
 
