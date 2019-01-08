@@ -10,7 +10,7 @@ local audio = require( "audio" )
 local scene = composer.newScene()
 local backgroundMusic = audio.loadStream( "assets/sounds/bensound-sunny.mp3" )
 
-local backgroundMusicChannel = -1
+_G.backgroundMusicChannel = -1
 
 --------------------------------------------
 
@@ -24,6 +24,11 @@ local function handlePlayButtonTap()
 	composer.gotoScene( "level1", "fade", 500 )
 	
 	return true	-- indicates successful touch
+end
+
+local function handleSettingsButtonTap()
+  composer.gotoScene( "settings", "fade", 500 )
+  return true
 end
 
 function scene:create( event )
@@ -59,7 +64,7 @@ function scene:create( event )
 	local settingsButton = display.newImageRect( "assets/images/settings-button.png", 166, 50 )
   settingsButton.x = display.contentCenterX
   settingsButton.y = display.contentCenterY + 140
-  -- settingsButton:addEventListener( "tap", handlePlayButtonTap )
+  settingsButton:addEventListener( "tap", handleSettingsButtonTap )
 
 
 	-- all display objects must be inserted into group
@@ -82,8 +87,10 @@ function scene:show( event )
 		-- 
 		-- INSERT code here to make the scene come alive
 		-- e.g. start timers, begin animation, play audio, etc.
-    if not audio.isChannelPlaying( backgroundMusicChannel ) then
-      backgroundMusicChannel = audio.play( backgroundMusic, { channel=1, loops=-1, fadein=5000 } )
+
+    -- play background music if not yet playing
+    if not audio.isChannelPlaying( _G.backgroundMusicChannel ) then
+      _G.backgroundMusicChannel = audio.play( backgroundMusic, { channel=1, loops=-1, fadein=5000 } )
     end
 	end	
 end
