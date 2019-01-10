@@ -5,12 +5,9 @@
 -----------------------------------------------------------------------------------------
 
 local composer = require( "composer" )
-local audio = require( "audio" )
+local sounds = require( "lib.sounds" )
 
 local scene = composer.newScene()
-local backgroundMusic = audio.loadStream( "assets/sounds/bensound-sunny.mp3" )
-
-_G.backgroundMusicChannel = -1
 
 --------------------------------------------
 
@@ -89,9 +86,8 @@ function scene:show( event )
 		-- e.g. start timers, begin animation, play audio, etc.
 
     -- play background music if not yet playing
-    if not audio.isChannelPlaying( _G.backgroundMusicChannel ) then
-      _G.backgroundMusicChannel = audio.play( backgroundMusic, { channel=1, loops=-1, fadein=5000 } )
-    end
+    sounds.playBackgroundSound()
+
 	end	
 end
 

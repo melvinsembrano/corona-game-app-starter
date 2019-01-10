@@ -1,5 +1,8 @@
 local composer = require( "composer" )
 local widget = require( "widget" )
+local settingsStore = require( "store.settings")
+local sounds = require( "lib.sounds" )
+local logger = require( "lib.logger" )
  
 local scene = composer.newScene()
  
@@ -15,8 +18,13 @@ local scene = composer.newScene()
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
 
-local function handleBgMusicSwitchRelease()
-  print( "toggle background musich here..." )
+local function handleBgMusicSwitchRelease( event )
+  settingsStore:setBgMusicStatus( event.target.isOn )
+  if event.target.isOn then
+    sounds.playBackgroundSound()
+  else
+    sounds.stopBackgroundSound()
+  end
 end
 
 -- create()
@@ -43,8 +51,10 @@ function scene:create( event )
 
     local bgMusicSwitch = widget.newSwitch( {
         style = "onOff",
+        initialSwitchState = settingsStore:getBgMusicStatus(),
         onRelease = handleBgMusicSwitchRelease
     } )
+
     bgMusicSwitch.x = display.contentCenterX
     bgMusicSwitch.anchorY = 0
     bgMusicSwitch.y = yOffset + 60

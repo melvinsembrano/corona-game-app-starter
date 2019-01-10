@@ -91,11 +91,14 @@ function Base:insert(attributes, db)
 end
 
 function Base:updateAttribute(col, value, filter, db)
-  local sql = "UPDATE " .. self.tablename .. " SET " .. col .. " = " .. value
+  local sql = "UPDATE " .. self.tablename .. " SET " .. col .. " = " .. wrapValue( value )
   if filter then
     sql = sql .. " WHERE " .. filter
   end
   sql = sql .. ";"
+
+  print( sql )
+
   if db then
     db:exec( sql )
   else
