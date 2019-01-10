@@ -31,6 +31,11 @@ local function handleFxMusicSwitchRelease( event )
   settingsStore:setFxMusicStatus( event.target.isOn )
 end
 
+local function handleCloseBUttonTap( event )
+  composer.gotoScene( "menu", "crossFade", 500 )
+  return true
+end
+
 -- create()
 function scene:create( event )
  
@@ -46,12 +51,20 @@ function scene:create( event )
 
     sceneGroup:insert( background )
 
+    local closeButton = display.newImageRect( "assets/images/close-button.png", 28, 28 )
+    closeButton.x = 6
+    closeButton.anchorX = 0
+    closeButton.y = 0
+    closeButton.anchorY = 1
+    closeButton:addEventListener( "tap", handleCloseBUttonTap )
+    sceneGroup:insert( closeButton )
+
     local settingsLabel = display.newImageRect( "assets/images/text-settings.png", 111, 33 )
     settingsLabel.x = display.contentCenterX
-    settingsLabel.y = 10
+    settingsLabel.y = 30
     sceneGroup:insert( settingsLabel )
 
-    local yOffset = 40
+    local yOffset = 60
 
     local bgMusicSwitch = widget.newSwitch( {
         style = "onOff",

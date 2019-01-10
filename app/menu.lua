@@ -18,13 +18,13 @@ local playBtn
 local function handlePlayButtonTap()
 	
 	-- go to level1.lua scene
-	composer.gotoScene( "level1", "fade", 500 )
+	composer.gotoScene( "level1", "crossFade", 500 )
 	
 	return true	-- indicates successful touch
 end
 
 local function handleSettingsButtonTap()
-  composer.gotoScene( "settings", "fade", 500 )
+  composer.gotoScene( "settings", "crossFade", 500 )
   return true
 end
 
