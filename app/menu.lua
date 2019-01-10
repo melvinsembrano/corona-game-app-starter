@@ -28,6 +28,11 @@ local function handleSettingsButtonTap()
   return true
 end
 
+local function handleLevelsButtonTap()
+  composer.gotoScene( "levels", "crossFade", 500 )
+  return true
+end
+
 function scene:create( event )
 	local sceneGroup = self.view
 
@@ -56,7 +61,7 @@ function scene:create( event )
 	local levelsButton = display.newImageRect( "assets/images/levels-button.png", 166, 50 )
   levelsButton.x = display.contentCenterX
   levelsButton.y = display.contentCenterY + 70
-  -- levelsButton:addEventListener( "tap", handlePlayButtonTap )
+  levelsButton:addEventListener( "tap", handleLevelsButtonTap )
 
 	local settingsButton = display.newImageRect( "assets/images/settings-button.png", 166, 50 )
   settingsButton.x = display.contentCenterX

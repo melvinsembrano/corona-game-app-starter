@@ -13,7 +13,12 @@ local scene = composer.newScene()
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
- 
+
+ local function handleCloseBUttonTap( event )
+  composer.gotoScene( "menu", "crossFade", 500 )
+  return true
+end
+
 -- create()
 function scene:create( event )
  
@@ -28,6 +33,14 @@ function scene:create( event )
     background.y = 0 + display.screenOriginY
 
     sceneGroup:insert( background )
+
+    local closeButton = display.newImageRect( "assets/images/close-button.png", 28, 28 )
+    closeButton.x = 6
+    closeButton.anchorX = 0
+    closeButton.y = 0
+    closeButton.anchorY = 1
+    closeButton:addEventListener( "tap", handleCloseBUttonTap )
+    sceneGroup:insert( closeButton )
 end
  
  
