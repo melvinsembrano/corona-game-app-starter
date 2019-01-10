@@ -37,5 +37,22 @@ function settings:setBgMusicStatus( value )
   return self:setValue( "bg-music-status",  saveValue )
 end
 
+function settings:getFxMusicStatus()
+  local value = self:getValue( "fx-music-status" )
+  if value == nil then
+    value = "on"
+    self:insert( {
+      name = "fx-music-status",
+      value = value
+    } )
+  end
+  return value == "on"
+end
+
+function settings:setFxMusicStatus( value )
+  local saveValue = value and "on" or "off"
+  return self:setValue( "fx-music-status",  saveValue )
+end
+
 return settings
 

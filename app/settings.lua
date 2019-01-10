@@ -27,6 +27,10 @@ local function handleBgMusicSwitchRelease( event )
   end
 end
 
+local function handleFxMusicSwitchRelease( event )
+  settingsStore:setFxMusicStatus( event.target.isOn )
+end
+
 -- create()
 function scene:create( event )
  
@@ -67,7 +71,8 @@ function scene:create( event )
 
     local fxSoundSwitch = widget.newSwitch( {
         style = "onOff",
-        onRelease = handleBgMusicSwitchRelease
+        initialSwitchState = settingsStore:getFxMusicStatus(),
+        onRelease = handleFxMusicSwitchRelease
     } )
     fxSoundSwitch.x = display.contentCenterX
     fxSoundSwitch.anchorY = 0
